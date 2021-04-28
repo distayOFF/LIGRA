@@ -1,0 +1,12 @@
+{
+  "discordToken": "",
+  "on-alt": false,
+  "on-altToken": "",
+  "notification": true,
+
+  "delay-enabled": false,
+  "delay": 1,
+
+  "nitro_sniper": true,
+  "giveaway_sniper": true
+}
