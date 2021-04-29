@@ -1,12 +1,15 @@
 {
-  "discordToken": "",
-  "on-alt": false,
-  "on-altToken": "",
+  "sniperToken": "ODA3NTM3MDQ1MjUyNjAzOTA1.YEncnw.lT1zHNktDUOGjEdKgSfC6bJlryk",
+  "sniperAlt": false,
+  "sniperAltToken": "",
   "notification": true,
 
   "delay-enabled": false,
   "delay": 1,
 
   "nitro_sniper": true,
-  "giveaway_sniper": true
+  "giveaway_sniper": true,
+
+  "selfbotToken": "ODMyMjMxNDM2MDc2NTgwOTM3.YIef2A.CJ7l4tvDypKXaesoCGLC045kXOo",
+  "selfbotPrefix": "."
 }
