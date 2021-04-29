@@ -18,8 +18,8 @@ with open('Config.json') as f:
     config = json.load(f)
 
 onalt = config.get("on-alt")
-token = config.get('discordToken')
-rtoken = config.get("on-altToken")
+token = config.get('sniperToken')
+rtoken = config.get("sniperAltToken")
 edelay = config.get("delay-enabled")
 
 giveaway_sniper = config.get('giveaway_sniper')
@@ -70,7 +70,8 @@ def codestart():
     else:
         notify = "Turned off"
 
-    print(f'''{Fore.LIGHTMAGENTA_EX}
+    print(f'''{Fore.LIGHTBLACK_EX}___________________________________________________________________________________________{Fore.LIGHTMAGENTA_EX}
+
  ██▓     ██▓  ▄████  ██▀███   ▄▄▄           ██████  ███▄    █  ██▓ ██▓███  ▓█████  ██▀███
 ▓██▒    ▓██▒ ██▒ ▀█▒▓██ ▒ ██▒▒████▄       ▒██    ▒  ██ ▀█   █ ▓██▒▓██░  ██▒▓█   ▀ ▓██ ▒ ██▒
 ▒██░    ▒██▒▒██░▄▄▄░▓██ ░▄█ ▒▒██  ▀█▄     ░ ▓██▄   ▓██  ▀█ ██▒▒██▒▓██░ ██▓▒▒███   ▓██ ░▄█ ▒
@@ -85,6 +86,7 @@ def codestart():
                                Nitro Sniper  -  {nitro} {onaltt}
                             Giveaway Sniper  -  {giveaway} {ddelay}
                                Notification  -  {notify}
+___________________________________________________________________________________________
     ''' + Fore.RESET)
 
 
@@ -102,7 +104,7 @@ Clear()
 
 def Init():
     if onalt:
-        if config.get('discordToken') == config.get('on-altToken'):
+        if config.get('sniperToken') == config.get('sniperAltToken'):
             Clear()
             system('mode 47, 24')
             print(f"""{Fore.LIGHTMAGENTA_EX}
@@ -116,7 +118,7 @@ def Init():
    ░     ░░   ░   ░░   ░ ░ ░ ░ ▒    ░░   ░
    ░  ░   ░        ░         ░ ░     ░
 
-{Fore.LIGHTMAGENTA_EX}on-altToken{Fore.LIGHTBLACK_EX} can't be the same as {Fore.LIGHTMAGENTA_EX}discordToken{Fore.LIGHTBLACK_EX}!
+{Fore.LIGHTMAGENTA_EX}sniperAltToken{Fore.LIGHTBLACK_EX} can't be the same as {Fore.LIGHTMAGENTA_EX}sniperToken
 """)
             sleep(5)
             exit()
@@ -165,7 +167,7 @@ def Init():
                 sleep(5)
                 exit()
 
-    if config.get('discordToken') == "":
+    if config.get('sniperToken') == "":
         Clear()
         system('mode 47, 24')
         print(f"""{Fore.LIGHTMAGENTA_EX}
@@ -179,12 +181,12 @@ def Init():
 ░     ░░   ░   ░░   ░ ░ ░ ░ ▒    ░░   ░
 ░  ░   ░        ░         ░ ░     ░
 
-{Fore.LIGHTBLACK_EX}You didn't placed your {Fore.LIGHTMAGENTA_EX}discordToken{Fore.LIGHTBLACK_EX} in {Fore.LIGHTMAGENTA_EX}Config{Fore.LIGHTBLACK_EX}
+{Fore.LIGHTBLACK_EX}You didn't placed your {Fore.LIGHTMAGENTA_EX}sniperToken{Fore.LIGHTBLACK_EX} in {Fore.LIGHTMAGENTA_EX}Config{Fore.LIGHTBLACK_EX}
 """)
         sleep(5)
         exit()
     else:
-        token = config.get('discordToken')
+        token = config.get('sniperToken')
         try:
             Sniper.run(token, bot=False, reconnect=True)
             system(f'title [LIGRA] Sniper ^| Version: {VERSION}')
@@ -202,7 +204,7 @@ def Init():
 ░     ░░   ░   ░░   ░ ░ ░ ░ ▒    ░░   ░
 ░  ░   ░        ░         ░ ░     ░
 
-{Fore.LIGHTBLACK_EX}Unknown {Fore.LIGHTMAGENTA_EX}discordToken{Fore.LIGHTBLACK_EX} has been placed (or none)
+{Fore.LIGHTBLACK_EX}Unknown {Fore.LIGHTMAGENTA_EX}sniperToken{Fore.LIGHTBLACK_EX} has been placed (or none)
 """)
             sleep(5)
             exit()
@@ -409,6 +411,5 @@ async def on_message(message):
 @Sniper.event
 async def on_connect():
     Clear()
-
     codestart()
     system(f'title [LIGRA] Sniper ^| Version: {VERSION}')
