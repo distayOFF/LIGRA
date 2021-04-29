@@ -1,6 +1,7 @@
 VERSION = "oa1.0"
 
 from sniper import *
+from selfbot import *
 
 from colorama import Fore
 from os import system
@@ -22,6 +23,7 @@ def mainmenu():
 ╔═════════════════════════════════════════════╗
 ║                                             ║
 ║        [1] Nitro, Giveawaysniper [1]        ║
+║        [2]        Selfbot        [2]        ║
 ║                                             ║
 ╚═════════════════════════════════════════════╝
     ''' + Fore.RESET)
@@ -30,6 +32,9 @@ def mainmenu():
         system('cls')
         system('mode 91, 30')
         Init()
+    elif choice == '2':
+        system('cls')
+        startSelfbot()
     else:
         mainmenu()
 
