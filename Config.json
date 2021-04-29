@@ -1,5 +1,5 @@
 {
-  "sniperToken": "ODA3NTM3MDQ1MjUyNjAzOTA1.YEncnw.lT1zHNktDUOGjEdKgSfC6bJlryk",
+  "sniperToken": "",
   "sniperAlt": false,
   "sniperAltToken": "",
   "notification": true,
@@ -10,6 +10,6 @@
   "nitro_sniper": true,
   "giveaway_sniper": true,
 
-  "selfbotToken": "ODMyMjMxNDM2MDc2NTgwOTM3.YIef2A.CJ7l4tvDypKXaesoCGLC045kXOo",
+  "selfbotToken": "",
   "selfbotPrefix": "."
 }
