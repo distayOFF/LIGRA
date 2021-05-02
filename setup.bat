@@ -5,3 +5,6 @@ pip install requests
 pip install datetime
 pip install discord
 pip install selenium
+pip install psutil
+pip install emoji
+pip install typing
