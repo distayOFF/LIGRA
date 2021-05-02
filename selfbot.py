@@ -1,11 +1,12 @@
 VERSION = "oa1.0"
 
-import discord, ctypes, json, webbrowser, requests, datetime, urllib, time, string, random, asyncio, aiohttp
+import discord, ctypes, json, webbrowser, requests, datetime, urllib, time, string, random, asyncio, aiohttp, typing, emoji, psutil, sys
 from discord.ext import commands, tasks
 from colorama import Fore, Back, Style
 from selenium import webdriver
 from itertools import cycle
-from os import system
+from os import system, execv
+from contextlib import redirect_stdout
 
 with open("Config.json") as f:
     config = json.load(f)
@@ -13,6 +14,7 @@ with open("Config.json") as f:
 TOKEN = config.get("selfbotToken")
 PREFIX = config.get("selfbotPrefix")
 
+psutil.cpu_percent(interval=1)
 prefix = PREFIX
 
 def ready():
@@ -366,6 +368,85 @@ async def saveav(ctx, user: discord.Member):
     print(f'''[OUTPUT] {Fore.LIGHTMAGENTA_EX}{user}{Fore.MAGENTA}'s av is saved in {Fore.LIGHTMAGENTA_EX}saved{Fore.MAGENTA}\n''')
 
 @LIGRA.command()
+async def restart(ctx):
+    print(f"{Fore.MAGENTA}[{datetime.datetime.now()} UTC]\n[INPUT] {Fore.LIGHTMAGENTA_EX}{prefix}restart{Fore.MAGENTA} in: {Fore.LIGHTMAGENTA_EX}#{ctx.channel}{Fore.MAGENTA}")
+    await ctx.message.delete()
+    print(f'''[OUTPUT] LIGRA is now restarting!\n''')
+    time.sleep(2)
+    execv(sys.executable, ["Discord main.py"] + sys.argv)
+
+@LIGRA.command()
+async def systeminfo(ctx):
+    print(f"{Fore.MAGENTA}[{datetime.datetime.now()} UTC]\n[INPUT] {Fore.LIGHTMAGENTA_EX}{prefix}systeminfo{Fore.MAGENTA} in: {Fore.LIGHTMAGENTA_EX}#{ctx.channel}{Fore.MAGENTA}")
+    start = time.perf_counter()
+    message = await ctx.send("Ping...")
+    end = time.perf_counter()
+    duration = (end - start) * 1000
+    await ctx.message.delete()
+    await message.delete()
+    cpuavg = psutil.cpu_percent(interval=None)
+    mem = psutil.virtual_memory()[2]
+    durround = round(duration, 3)
+    embed = discord.Embed(
+        title="System informationen", description="", color=discord.Colour.magenta()
+    )
+    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/702968498846171219/838335352019353620/baseline_info_black_24dp.png")
+    embed.add_field(name="CPU", value=f"{cpuavg}%", inline=True)
+    embed.add_field(name="Ram", value=f"{mem}%", inline=True)
+    embed.add_field(name="Ping", value=f"{durround}ms", inline=True)
+    embed.add_field(name="OS", value=f"{sys.platform}", inline=True)
+    embed.set_footer(text=f"[LIGRA] Selfbot | Version: {VERSION}")
+    await ctx.send(embed=embed)
+    print(f'[OUTPUT] Answer in: {Fore.LIGHTMAGENTA_EX}#{ctx.channel}{Fore.MAGENTA}\n')
+
+@LIGRA.command()
+async def cc(ctx):
+    print(f"{Fore.MAGENTA}[{datetime.datetime.now()} UTC]\n[INPUT] {Fore.LIGHTMAGENTA_EX}{prefix}cc{Fore.MAGENTA} in: {Fore.LIGHTMAGENTA_EX}#{ctx.channel}{Fore.MAGENTA}")
+    await ctx.message.delete()
+    await ctx.send("<ms-cxh-full://0>")
+    print(f'[OUTPUT] Answer in: {Fore.LIGHTMAGENTA_EX}#{ctx.channel}{Fore.MAGENTA}\n')
+
+@LIGRA.command()
+async def reaction(ctx, messageNo: typing.Optional[int] = 1, *, text):
+    print(f"{Fore.MAGENTA}[{datetime.datetime.now()} UTC]\n[INPUT] {Fore.LIGHTMAGENTA_EX}{prefix}reaction{Fore.MAGENTA} in: {Fore.LIGHTMAGENTA_EX}#{ctx.channel}{Fore.MAGENTA}")
+    await ctx.message.delete()
+    text = (c for c in text.lower())
+    emotes = {
+        "a": "🇦",
+        "b": "🇧",
+        "c": "🇨",
+        "d": "🇩",
+        "e": "🇪",
+        "f": "🇫",
+        "g": "🇬",
+        "h": "🇭",
+        "i": "🇮",
+        "j": "🇯",
+        "k": "🇰",
+        "l": "🇱",
+        "m": "🇲",
+        "n": "🇳",
+        "o": "🇴",
+        "p": "🇵",
+        "q": "🇶",
+        "r": "🇷",
+        "s": "🇸",
+        "t": "🇹",
+        "u": "🇺",
+        "v": "🇻",
+        "w": "🇼",
+        "x": "🇽",
+        "y": "🇾",
+        "z": "🇿",
+    }
+    for i, m in enumerate(await ctx.channel.history(limit=100).flatten()):
+        if messageNo == i:
+            for c in text:
+                await m.add_reaction(f"{emotes[c]}")
+            break
+    print(f'[OUTPUT] Answer in: {Fore.LIGHTMAGENTA_EX}#{ctx.channel}{Fore.MAGENTA}\n')
+
+@LIGRA.command()
 async def help(ctx):
   print(f"{Fore.MAGENTA}[{datetime.datetime.now()} UTC]\n[INPUT] {Fore.LIGHTMAGENTA_EX}{prefix}help{Fore.MAGENTA} in: {Fore.LIGHTMAGENTA_EX}#{ctx.channel}{Fore.MAGENTA}")
   await ctx.message.delete()
@@ -424,6 +505,19 @@ Shows you your ping
 
 {prefix}space
 Sends an empty text
+
+{prefix}restart
+Restarts the programm
+
+{prefix}systeminfo
+Shows your current systeminfo's
+
+{prefix}cc
+Sends crashcode (blackscreen)
+
+{prefix}reaction [message]
+Reacts to the last message
+send (currently testing)
 
 ```
 **__Spam Commands__**
